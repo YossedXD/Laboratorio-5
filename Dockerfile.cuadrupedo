@@ -1,0 +1,14 @@
+FROM python:3.10-slim
+
+# Instalar dependencias del entorno gráfico y PyBullet
+RUN apt-get update && apt-get install -y \
+    xvfb \
+    x11-apps \
+    libgl1-mesa-glx \
+    && pip install pybullet \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY cuadrupedo.py .
+
+CMD ["python", "cuadrupedo.py"]
